@@ -162,6 +162,13 @@ code {
   color: var(--color-indigo);
 }
 
+.nav__link--icon {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 4px;
+}
+.nav__link--icon svg { display: block; }
+
 /* --- Hero ------------------------------------------------- */
 .hero {
   padding: 80px 24px 60px;
