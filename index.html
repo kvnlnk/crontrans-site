@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crontrans — translate cron to English and back</title>
+  <meta name="description" content="crontrans: a bidirectional cron expression translator. Read, write, and understand cron schedules instantly." />
+  <meta property="og:title" content="crontrans — cron expression translator" />
+  <meta property="og:description" content="Translate cron expressions to plain English and back. Open source CLI tool." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://github.com/kvnlnk/crontrans" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%23818cf8' stroke-width='2'/%3E%3Cline x1='16' y1='16' x2='16' y2='7' stroke='%23f59e0b' stroke-width='2'/%3E%3Cline x1='16' y1='16' x2='23' y2='16' stroke='%23818cf8' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23818cf8'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div id="app">
+    <!-- Hairline top rule -->
+    <div class="hairline-top"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav__inner container">
+        <span class="nav__logo">
+          <svg class="nav__icon" viewBox="0 0 20 20" width="20" height="20" fill="none">
+            <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.2" />
+            <line x1="10" y1="10" x2="10" y2="4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="10" y1="10" x2="14.5" y2="10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            <circle cx="10" cy="10" r="1.5" fill="currentColor" />
+          </svg>
+          <span class="nav__title">crontrans</span>
+        </span>
+        <div class="nav__links">
+          <a href="#translator" class="nav__link">Translator</a>
+          <a href="#features" class="nav__link">Features</a>
+          <a href="#install" class="nav__link">Install</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero container">
+      <div class="hero__content">
+        <h1 class="hero__title">
+          <span class="hero__pre">cron</span>
+          <span class="hero__accent">→</span>
+          <span class="hero__english">English</span>
+          <span class="hero__ampersand">&amp;</span>
+          <span class="hero__back">back</span>
+        </h1>
+        <p class="hero__subtitle">
+          A precision instrument for reading, writing, and translating cron expressions.
+          <code>*/15 9-17 * * 1-5</code> → <span class="hero__example-text">every 15 minutes, Mon–Fri 9am–5pm</span>
+        </p>
+        <a href="#translator" class="hero__cta">Try the translator</a>
+      </div>
+    </header>
+
+    <!-- Hairline separator -->
+    <div class="hairline"></div>
+
+    <!-- Live Translator -->
+    <section id="translator" class="translator container">
+      <h2 class="section__title">Live translator</h2>
+      <p class="section__desc">Type any cron expression below. The translation updates instantly — no server, no delay.</p>
+      <div class="translator__widget">
+        <div class="translator__input-group">
+          <label for="cron-input" class="label">Cron expression</label>
+          <input
+            id="cron-input"
+            class="translator__input"
+            type="text"
+            value="*/15 9-17 * * 1-5"
+            spellcheck="false"
+            autofocus
+          />
+          <div class="translator__shorthands">
+            <button class="shorthand-btn" data-expr="@hourly">@hourly</button>
+            <button class="shorthand-btn" data-expr="@daily">@daily</button>
+            <button class="shorthand-btn" data-expr="@weekly">@weekly</button>
+            <button class="shorthand-btn" data-expr="@monthly">@monthly</button>
+            <button class="shorthand-btn" data-expr="@yearly">@yearly</button>
+          </div>
+        </div>
+        <div class="translator__output-group">
+          <span class="label">Plain English</span>
+          <div id="cron-output" class="translator__output">every 15 minutes, Monday through Friday, 9am to 5pm</div>
+          <div id="cron-raw" class="translator__raw"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hairline separator -->
+    <div class="hairline"></div>
+
+    <!-- Features -->
+    <section id="features" class="features container">
+      <h2 class="section__title">Precision features</h2>
+      <div class="features__grid">
+        <div class="feature">
+          <div class="feature__num">01</div>
+          <h3 class="feature__title">Bidirectional</h3>
+          <p class="feature__desc">Translate cron → English for reading, or English → cron for writing. Never second-guess a schedule again.</p>
+        </div>
+        <div class="feature">
+          <div class="feature__num">02</div>
+          <h3 class="feature__title">Zero dependencies</h3>
+          <p class="feature__desc">Written in pure Python with no external requirements. Install once, run anywhere cron lives.</p>
+        </div>
+        <div class="feature">
+          <div class="feature__num">03</div>
+          <h3 class="feature__title">All formats supported</h3>
+          <p class="feature__desc">Standard 5-field cron, <code>@</code>-shorthands, ranges, step values, lists, and special strings — everything cron can express.</p>
+        </div>
+        <div class="feature">
+          <div class="feature__num">04</div>
+          <h3 class="feature__title">CI-ready</h3>
+          <p class="feature__desc">Pipe cron expressions through <code>crontrans</code> in scripts, CI pipelines, or monitoring alerts. Human-readable schedules everywhere.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hairline separator -->
+    <div class="hairline"></div>
+
+    <!-- Examples -->
+    <section class="examples container">
+      <h2 class="section__title">Common patterns</h2>
+      <div class="examples__list">
+        <div class="example">
+          <code class="example__expr">0 2 * * *</code>
+          <div class="example__arrow">→</div>
+          <span class="example__translation">every day at 2:00am</span>
+        </div>
+        <div class="example">
+          <code class="example__expr">*/5 9-17 * * 1-5</code>
+          <div class="example__arrow">→</div>
+          <span class="example__translation">every 5 minutes, Monday through Friday, 9am to 5pm</span>
+        </div>
+        <div class="example">
+          <code class="example__expr">0 0 1 1 *</code>
+          <div class="example__arrow">→</div>
+          <span class="example__translation">January 1st at midnight</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hairline separator -->
+    <div class="hairline"></div>
+
+    <!-- Install -->
+    <section id="install" class="install container">
+      <h2 class="section__title">Install</h2>
+      <p class="section__desc">One command, zero fuss. Requires Python 3.8+.</p>
+      <div class="install__code-block">
+        <code class="install__code">pip install crontrans</code>
+        <button class="install__copy" data-copy="pip install crontrans">Copy</button>
+      </div>
+      <p class="install__usage">
+        Then: <code class="inline-code">crontrans "*/15 9-17 * * 1-5"</code>
+      </p>
+    </section>
+
+    <!-- Hairline separator -->
+    <div class="hairline"></div>
+
+    <!-- Footer -->
+    <footer class="footer container">
+      <div class="footer__inner">
+        <span class="footer__copy">&copy; 2026 — MIT License</span>
+        <a href="https://github.com/kvnlnk/crontrans" class="footer__link" target="_blank" rel="noopener noreferrer">
+          <svg class="footer__icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </footer>
+
+    <!-- Hairline bottom rule -->
+    <div class="hairline-bottom"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
