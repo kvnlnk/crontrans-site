@@ -160,8 +160,9 @@ function parseCron(expr) {
   } else if (hField.values.length === 1) {
     hourDesc = formatTime(hField.values[0])
   } else {
-    hourDesc = `${hField.values[0] > 12 ? hField.values[0] - 12 : (hField.values[0] || 12)}am` +
-               ` to ${hField.values[1] > 12 ? hField.values[1] - 12 : (hField.values[1] || 12)}pm`
+    const hStart = hField.values[0]
+    const hEnd = hField.values[hField.values.length - 1]
+    hourDesc = `${formatTime(hStart)} to ${formatTime(hEnd)}`
   }
 
   // Build time phrase
@@ -183,14 +184,18 @@ function parseCron(expr) {
     const mPart = minuteDesc
     if (hField.type === 'every') {
       fragments.push(mPart === 'every minute' ? 'every minute' : mPart)
-    } else if (hField.type === 'list' && hField.values.length === 2) {
-      fragments.push(`${mPart}, ${hField.values[0]}am to ${hField.values[1]}pm`)
+    } else if (hField.type === 'list' && hField.values.length >= 2) {
+      const hStart = hField.values[0]
+      const hEnd = hField.values[hField.values.length - 1]
+      fragments.push(`${mPart}, ${formatTime(hStart)} to ${formatTime(hEnd)}`)
     } else {
       fragments.push(`${mPart}, ${hourDesc}`)
     }
   } else if (minuteDesc.startsWith('at minutes ')) {
-    if (hField.type === 'list' && hField.values.length === 2) {
-      fragments.push(`${minuteDesc}, ${hField.values[0]}am to ${hField.values[1]}pm`)
+    if (hField.type === 'list' && hField.values.length >= 2) {
+      const hStart = hField.values[0]
+      const hEnd = hField.values[hField.values.length - 1]
+      fragments.push(`${minuteDesc}, ${formatTime(hStart)} to ${formatTime(hEnd)}`)
     } else if (hField.type === 'list' && hField.values.length === 1) {
       fragments.push(`${minuteDesc} past ${formatTime(hField.values[0])}`)
     } else {
